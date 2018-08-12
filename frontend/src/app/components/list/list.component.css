@@ -1,0 +1,40 @@
+table{
+    width: 100%;
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+.date{ width: 15%; }
+.activity{ width: 15%; }
+.mood{ width: 10%; }
+.remark{ width: 40%; }
+.actions{ width: 20%; text-align: center;}
+
+.mat-column-right{
+    text-align: center;
+}
+
+.mood-cell-red{
+    font-size: 15pt;
+    color: red;
+}
+
+.mood-cell-orange{
+    font-size: 15pt;
+    color: orange;
+}
+
+.mood-cell-green{
+    font-size: 15pt;
+    color: green;
+}
+
+.mood-cell-blue{
+    font-size: 15pt;
+    color: blue;
+}
+
+.mood-cell-navy{
+    font-size: 15pt;
+    color: navy;
+}

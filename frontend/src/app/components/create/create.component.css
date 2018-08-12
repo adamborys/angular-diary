@@ -1,0 +1,21 @@
+.create-form{
+    max-width: 400px;
+    width: 100%;
+}
+
+.field-full-width{
+    width: 100%;
+}
+
+.field-settings{
+    width: 40%;
+}
+
+.minutes-button{
+    min-width: 40px;
+    width: 40px;
+    height: 30px;
+    padding: 0px;
+    margin: 5px;
+    vertical-align: center;
+}

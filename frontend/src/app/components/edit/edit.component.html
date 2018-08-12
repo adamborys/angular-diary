@@ -1,0 +1,64 @@
+<div>
+  <br>
+  <mat-card>
+    <section class="mat-typography">
+      <h3>Edit entry</h3>
+    </section>
+    <mat-divider></mat-divider>
+    <br>
+    <form [formGroup]="editForm" class="edit-form">
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-form-field class="field-full-width">
+            <input matInput type="time" placeholder="Time of activity" formControlName="time" #time/>
+        </mat-form-field>
+        <button mat-raised-button type="button" class="minutes-button" 
+        (click)="setMinutes(time.value, '00')">:00</button>
+        <button mat-raised-button type="button" class="minutes-button" 
+        (click)="setMinutes(time.value, '15')">:15</button>
+        <button mat-raised-button type="button" class="minutes-button" 
+        (click)="setMinutes(time.value, '30')">:30</button>
+        <button mat-raised-button type="button" class="minutes-button" 
+        (click)="setMinutes(time.value, '45')">:45</button>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-form-field class="field-full-width">
+          <input matInput [matDatepicker]="dp" formControlName="date" #date>
+          <mat-datepicker #dp></mat-datepicker>
+        </mat-form-field>
+        <button mat-icon-button type="button" (click)="setDay(date.value, '1')">
+          <mat-icon>arrow_upward</mat-icon>
+        </button>
+        <button mat-icon-button type="button" (click)="setDay(date.value, '-1')">
+          <mat-icon>arrow_downward</mat-icon>
+        </button>
+        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+      </div>
+      <mat-form-field class="field-full-width">
+        <input matInput placeholder="Name of activity" formControlName="activity" #activity>
+      </mat-form-field>
+      <mat-form-field class="field-settings">
+        <mat-select matInput placeholder="Mood" formControlName="mood" [value]="this.entry.mood" #mood>
+          <mat-option [value]="10">10</mat-option>
+          <mat-option [value]="9">9 (Manic)</mat-option>
+          <mat-option [value]="8">8</mat-option>
+          <mat-option [value]="7">7 (Hypomanic)</mat-option>
+          <mat-option [value]="6">6</mat-option>
+          <mat-option [value]="5">5 (Balanced)</mat-option>
+          <mat-option [value]="4">4</mat-option>
+          <mat-option [value]="3">3 (Subdepressive)</mat-option>
+          <mat-option [value]="2">2</mat-option>
+          <mat-option [value]="1">1 (Depressive)</mat-option>
+          <mat-option [value]="0">0</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="field-full-width">
+        <textarea matInput placeholder="Optional remark" formControlName="remark"
+        matTextareaAutosize style="resize: none;" id="remark" #remark></textarea>
+      </mat-form-field>
+      <mat-divider></mat-divider>
+      <br><br>
+      <button mat-raised-button color="accent" routerLink="/list">Back</button>
+      <button type="submit" mat-raised-button color="primary" (click)="editEntry(time.value, date.value, activity.value, mood.value, remark.value)" [disabled]="editForm.pristine || editForm.invalid">Save changes</button>
+    </form>
+  </mat-card>
+</div>

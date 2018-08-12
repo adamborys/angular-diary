@@ -1,0 +1,17 @@
+<div (window:resize)="onResize($event)" fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="space-evenly center">
+    <mat-form-field>
+      <input matInput [(ngModel)]="startDate" (ngModelChange)="updateChart()" [matDatepicker]="dpStart">
+      <mat-datepicker-toggle matSuffix [for]="dpStart"></mat-datepicker-toggle>
+      <mat-datepicker #dpStart></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="endDate" (ngModelChange)="updateChart()" [matDatepicker]="dpEnd">
+      <mat-datepicker-toggle matSuffix [for]="dpEnd"></mat-datepicker-toggle>
+      <mat-datepicker #dpEnd></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="main-chart">
+    <canvas id="main"></canvas>
+  </div>
+</div>
