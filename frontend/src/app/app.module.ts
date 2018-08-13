@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 // tslint:disable-next-line:max-line-length
-import { MatDatepickerModule, MatNativeDateModule, MatToolbarModule, MatFormFieldModule, MatInputModule, MatOptionModule, MatSelectModule, MatIconModule, MatButtonModule, MatCardModule, MatTableModule, MatSortModule, MatPaginatorModule, MatDividerModule, MatSnackBarModule } from '@angular/material';
+import { MatDatepickerModule, MatNativeDateModule, MatToolbarModule, MatFormFieldModule, MatStepperModule, MatInputModule, MatOptionModule, MatSelectModule, MatIconModule, MatButtonModule, MatCardModule, MatTableModule, MatSortModule, MatPaginatorModule, MatDividerModule, MatSnackBarModule } from '@angular/material';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 
 import { AppComponent } from './app.component';
@@ -16,12 +16,16 @@ import { CreateComponent } from './components/create/create.component';
 import { EditComponent } from './components/edit/edit.component';
 import { StatsComponent } from './components/stats/stats.component';
 import { EntryService } from './services/entry.service';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
   { path: 'create', component: CreateComponent},
   { path: 'edit/:id', component: EditComponent},
   { path: 'list', component: ListComponent},
   { path: 'stats', component: StatsComponent},
+  { path: 'login', component: LoginComponent},
+  { path: 'register', component: RegisterComponent},
   { path: '', redirectTo: 'list', pathMatch: 'full'}
 ];
 
@@ -31,14 +35,16 @@ const routes: Routes = [
     ListComponent,
     CreateComponent,
     EditComponent,
-    StatsComponent
+    StatsComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    ReactiveFormsModule, FormsModule,
+    ReactiveFormsModule, FormsModule, MatStepperModule,
     FlexLayoutModule,
     // tslint:disable-next-line:max-line-length
     MatToolbarModule, MatFormFieldModule, MatInputModule, MatOptionModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatIconModule, MatButtonModule, MatCardModule, MatTableModule, MatSortModule, MatPaginatorModule, MatDividerModule, MatSnackBarModule,

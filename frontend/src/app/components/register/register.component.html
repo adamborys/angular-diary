@@ -1,0 +1,48 @@
+<div>
+  <br>
+  <mat-card>
+    <section class="mat-typography" style="text-align: center">
+      <h2>Register to keep your diary</h2>
+    </section>
+    <mat-divider></mat-divider>
+    <br>
+    <mat-horizontal-stepper class="register-form" linear="true">
+      <mat-step>
+        <form [formGroup]="firstStep">
+          <ng-template matStepLabel>Enter e-mail address</ng-template>
+          <div class="step-form">
+            <br>
+            <mat-form-field appearance="outline" class="field-full-width">
+              <mat-label>E-mail address</mat-label>
+              <input matInput formControlName="email" #email>
+            </mat-form-field>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <form [formGroup]="secondStep">
+          <ng-template matStepLabel>Enter password</ng-template>
+          <div fxLayout="column" class="step-form">
+            <br>
+            <mat-form-field appearance="outline" class="field-full-width">
+                <mat-label>Password</mat-label>
+              <input matInput formControlName="password" #password>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="field-full-width">
+                <mat-label>Confirm password</mat-label>
+              <input matInput formControlName="confirmPassword" #confirmPassword>
+            </mat-form-field>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+          <ng-template matStepLabel>Finalize registration</ng-template>
+          <br><br>
+          <div fxLayout="row" class="step-form-buttons">
+            <button type="button" mat-raised-button color="accent">Send confirmation mail</button>
+            <button type="submit" mat-raised-button color="primary">Use existing account</button>
+          </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-card>
+</div>

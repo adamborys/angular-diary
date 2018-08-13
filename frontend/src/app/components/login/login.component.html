@@ -1,0 +1,26 @@
+<div>
+  <br>
+  <mat-card>
+    <section class="mat-typography" style="text-align: center">
+      <h2>Sign in to view your entries</h2>
+    </section>
+    <mat-divider></mat-divider>
+    <br>
+    <form [formGroup]="loginForm" class="login-form">
+      <div fxLayout="column">
+        <mat-form-field appearance="outline" class="field-full-width">
+          <mat-label>E-mail address</mat-label>
+          <input matInput formControlName="email" #email>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="field-full-width">
+            <mat-label>Password</mat-label>
+          <input matInput formControlName="password" #password>
+        </mat-form-field>
+      </div>
+      <mat-divider></mat-divider>
+      <br>
+      <button type="button" mat-raised-button color="accent">Register</button>
+      <button type="submit" mat-raised-button color="primary" [disabled]="loginForm.pristine || loginForm.invalid">Sign in</button>
+    </form>
+  </mat-card>
+</div>
