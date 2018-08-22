@@ -4,7 +4,6 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 
 import Entry from './models/entry';
-import { INSPECT_MAX_BYTES } from 'buffer';
 
 const app = express();
 const router = express.Router();
