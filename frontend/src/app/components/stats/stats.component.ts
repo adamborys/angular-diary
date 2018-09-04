@@ -228,26 +228,6 @@ export class StatsComponent implements AfterViewInit {
     });
   }
 
-  chartRefreshColours(height: number) {
-    const canvas = <HTMLCanvasElement> document.getElementById('main');
-    const ctx = canvas.getContext('2d');
-    const gradientStroke = ctx.createLinearGradient(0, height, 0, 0);
-    gradientStroke.addColorStop(0, 'navy');
-    gradientStroke.addColorStop(0.175 , 'navy');
-    gradientStroke.addColorStop(0.225, 'blue');
-    gradientStroke.addColorStop(0.375, 'blue');
-    gradientStroke.addColorStop(0.4, '#007878');
-    gradientStroke.addColorStop(0.425, 'green');
-    gradientStroke.addColorStop(0.5, 'green');
-    gradientStroke.addColorStop(0.6, 'green');
-    gradientStroke.addColorStop(0.625, '#989800');
-    gradientStroke.addColorStop(0.65, 'orange');
-    gradientStroke.addColorStop(0.8, 'orange');
-    gradientStroke.addColorStop(0.9, 'red');
-    gradientStroke.addColorStop(1, 'red');
-    return gradientStroke;
-  }
-
   createChartDataArray(dates: Date[], moods: Number[]) {
     const dataArray = [];
     const length = moods.length;
