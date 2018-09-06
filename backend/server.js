@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 
 import Entry from './models/entry';
+import User from './models/user';
 
 const app = express();
 const router = express.Router();
@@ -11,11 +12,11 @@ const router = express.Router();
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/entries', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost:27017/diary', { useNewUrlParser: true });
 const connection = mongoose.connection;
 connection.once('open', () => console.log('Database connection estabilished'));
 
-router.route('/entries').get((req,res) => {
+router.route('/entries').get((req, res) => {
     Entry.find((err,entries) => {
         if(err)
             console.log(err);
@@ -24,7 +25,7 @@ router.route('/entries').get((req,res) => {
     });
 });
 
-router.route('/entries/:id').get((req,res) => {
+router.route('/entries/:id').get((req, res) => {
     Entry.findById(req.params.id, (err,entry) => {
         if(err)
             console.log(err);
@@ -33,17 +34,17 @@ router.route('/entries/:id').get((req,res) => {
     });
 });
 
-router.route('/entries/add').post((req,res) => {
+router.route('/entries/add').post((req, res) => {
     let entry = new Entry(req.body);
     entry.save()
         .then(entry =>
             res.status(200).json({'entry': 'Added successfully'}))
         .catch(err =>
-            res.status(400).send('Adding new entry failed'))
+            res.status(400).send('Adding new entry failed'));
 });
 
-router.route('/entries/edit/:id').post((req,res) => {
-    Entry.findById(req.params.id, (err,entry) => {
+router.route('/entries/edit/:id').post((req, res) => {
+    Entry.findById(req.params.id, (err, entry) => {
         if(!entry)
             return next(new Error('Unable to load document'));
         else {
@@ -56,17 +57,43 @@ router.route('/entries/edit/:id').post((req,res) => {
             .then(entry =>
                 res.json('Changes have been saved'))
             .catch(err =>
-                res.status(400).send('Saving changes failed'))
+                res.status(400).send('Saving changes failed'));
         }
     });
 });
 
-router.route('/entries/remove/:id').get((req,res) => {
-    Entry.findByIdAndRemove(req.params.id, (err,entry) => {
+router.route('/entries/remove/:id').get((req, res) => {
+    Entry.findByIdAndRemove(req.params.id, (err, entry) => {
         if(err)
             res.json(err);
         else
-            res.json('Remove successfully');
+            res.json('Removed successfully');
+    });
+});
+
+router.route('/register').post((req, res) => {
+    let user = new User(req.body);
+    user.save()
+        .then(entry =>
+            res.status(200).json({'user': 'Added successfully'}))
+        .catch(err =>
+            res.status(400).send('Adding new user failed'));
+});
+
+router.route('/login').post((req, res) => {
+    let userData = req.body;
+    User.findOne({email: userData.email}, (err, user) => {
+        if (err) {
+            console.log(err)
+        } else {
+            if (!user) {
+                res.status(401).send('E-mail not found');
+            } else if (userData.password !== user.password) {
+                res.status(401).send('Invalid password');
+            } else {
+                res.status(200).send(user);
+            }
+        }
     });
 });
 

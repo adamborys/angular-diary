@@ -9,4 +9,4 @@ let Entry = new Schema({
     remark: String
 })
 
-export default mongoose.model('Entry', Entry)
+export default mongoose.model('Entry', Entry);
