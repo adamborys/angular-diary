@@ -39,8 +39,8 @@
           <ng-template matStepLabel>Finalize registration</ng-template>
           <br><br>
           <div fxLayout="row" class="step-form-buttons">
-            <button type="button" mat-raised-button color="accent">Send confirmation mail</button>
-            <button type="submit" mat-raised-button color="primary">Use existing account</button>
+            <button type="submit" mat-raised-button color="accent" (click)="registerUser(email.value, password.value)">Send confirmation mail</button>
+            <button type="button" mat-raised-button color="primary">Use existing account</button>
           </div>
       </mat-step>
     </mat-horizontal-stepper>

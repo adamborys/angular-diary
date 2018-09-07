@@ -1,6 +1,6 @@
-import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatTableDataSource, MatSort, MatPaginator, MatSnackBar, MatSnackBarRef } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatSnackBar } from '@angular/material';
 
 import { Entry } from '../../models/entry.model';
 import { EntryService } from '../../services/entry.service';

@@ -7,16 +7,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EntryService {
 
-  uri = 'http://localhost:4000';
+  private _uri = 'http://localhost:4000';
 
   constructor(private http: HttpClient) { }
 
   getEntries() {
-    return this.http.get(`${this.uri}/entries`);
+    return this.http.get(`${this._uri}/entries`);
   }
 
   getEntryById(id) {
-    return this.http.get(`${this.uri}/entries/${id}`);
+    return this.http.get(`${this._uri}/entries/${id}`);
   }
 
   addEntry(date, activity, mood, remark) {
@@ -26,7 +26,7 @@ export class EntryService {
       mood: mood,
       remark: remark
     };
-    return this.http.post(`${this.uri}/entries/add`, entry);
+    return this.http.post(`${this._uri}/entries/add`, entry);
   }
 
   addEntryDateNow(activity, mood, remark) {
@@ -35,17 +35,11 @@ export class EntryService {
       mood: mood,
       remark: remark
     };
-    return this.http.post(`${this.uri}/entries/add`, entry);
+    return this.http.post(`${this._uri}/entries/add`, entry);
   }
 
   addRecoveredEntry(entry) {
-    const recoveredEntry = {
-      date: entry.date,
-      activity: entry.activity,
-      mood: entry.mood,
-      remark: entry.remark
-    };
-    return this.http.post(`${this.uri}/entries/add`, recoveredEntry);
+    return this.http.post(`${this._uri}/entries/add`, entry);
   }
 
   editEntry(id, date, activity, mood, remark) {
@@ -55,10 +49,10 @@ export class EntryService {
       mood: mood,
       remark: remark
     };
-    return this.http.post(`${this.uri}/entries/edit/${id}`, entry);
+    return this.http.post(`${this._uri}/entries/edit/${id}`, entry);
   }
 
   removeEntry(id) {
-    return this.http.get(`${this.uri}/entries/remove/${id}`);
+    return this.http.get(`${this._uri}/entries/remove/${id}`);
   }
 }
