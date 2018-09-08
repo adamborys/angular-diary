@@ -80,7 +80,7 @@ router.route('/users/register').post((req, res) => {
             res.status(400).send('Adding new user failed'));
 });
 
-router.route('/users//login').post((req, res) => {
+router.route('/users/login').post((req, res) => {
     let userData = req.body;
     User.findOne({email: userData.email}, (err, user) => {
         if (err) {
