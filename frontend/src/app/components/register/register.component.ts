@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatStepper } from '@angular/material';
+import { switchMap } from 'rxjs/operators';
+import { of  } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +20,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.firstStep = this.fb.group({
-      email: ['', Validators.required]
+      email: ['', Validators.compose([ Validators.required, Validators.email])]
     });
     this.secondStep = this.fb.group({
       password: ['', Validators.required],
@@ -27,10 +29,25 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser(email: String, password: String) {
-    this.authService.registerUser(email, password).subscribe(
-      res => this.snackBar.open(String(res), 'Ok!', { duration: 5000 }),
-      err => this.snackBar.open(String(err), 'Ok!', { duration: 5000 })
-    );
+    this.authService.findUser(email).pipe(
+      switchMap(res => {
+        if (res.status === 202) {
+          return of(res);
+        }
+        return this.authService.registerUser(email, password);
+      })
+    ).subscribe(res => {
+      console.log(res);
+      if (res.status === 201) {
+        this.router.navigate(['/list']);
+      } else if (res.status === 202) {
+        this.snackBar.open('E-mail already taken.', 'Ok', { duration: 3000 });
+      } else {
+        this.snackBar.open('Unable to add new user.', 'Try later', { duration: 3000 });
+      }
+    },
+    err => {
+      console.log(err);
+    });
   }
-
 }

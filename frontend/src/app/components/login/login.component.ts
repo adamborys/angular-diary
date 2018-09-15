@@ -24,8 +24,12 @@ export class LoginComponent implements OnInit {
 
   loginUser(email: String, password: String) {
     this.authService.loginUser(email, password).subscribe(
-      res => this.snackBar.open(String(res), 'Ok!', { duration: 5000 }),
-      err => this.snackBar.open(String(err), 'Ok!', { duration: 5000 })
+      res => {
+        console.log(res.valueOf().toString());
+      },
+      err => {
+        console.log(err);
+      }
     );
   }
 }

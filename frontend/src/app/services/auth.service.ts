@@ -10,12 +10,16 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  findUser(email) {
+    return this.http.get(`${this._uri}/users/find/${email}`, {observe: 'response'});
+  }
+
   registerUser(email, password) {
     const user = {
       email: email,
       password: password
     };
-    return this.http.post(`${this._uri}/users/register`, user);
+    return this.http.post(`${this._uri}/users/register`, user, {observe: 'response'});
   }
 
   loginUser(email, password) {

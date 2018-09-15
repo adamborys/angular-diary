@@ -7,7 +7,7 @@
     <mat-divider></mat-divider>
     <br>
     <mat-horizontal-stepper class="register-form" linear="true">
-      <mat-step>
+      <mat-step [stepControl]="firstStep">
         <form [formGroup]="firstStep">
           <ng-template matStepLabel>Enter e-mail address</ng-template>
           <div class="step-form">
@@ -19,7 +19,7 @@
           </div>
         </form>
       </mat-step>
-      <mat-step>
+      <mat-step [stepControl]="secondStep">
         <form [formGroup]="secondStep">
           <ng-template matStepLabel>Enter password</ng-template>
           <div fxLayout="column" class="step-form">

@@ -71,8 +71,7 @@ export class EditComponent implements AfterViewInit {
 
   editEntry(time, date, activity, mood, remarks) {
     const timeInput = time.split(':');
-    // tslint:disable-next-line:prefer-const
-    let timeDate = moment(date, 'DD/MM/YYYY HH:mm');
+    const timeDate = moment(date, 'DD/MM/YYYY HH:mm');
     timeDate.add(timeInput[0], 'hours');
     timeDate.add(timeInput[1], 'minutes');
     this.entryService.editEntry(this.id, timeDate, activity, mood, remarks).subscribe(() => {

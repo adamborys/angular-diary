@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 
 import Entry from './models/entry';
 import User from './models/user';
+import crypto from 'crypto';
 
 const app = express();
 const router = express.Router();
@@ -71,27 +72,55 @@ router.route('/entries/remove/:id').get((req, res) => {
     });
 });
 
+router.route('/users/find/:email').get((req, res) => {
+    User.findOne({email: req.params.email}).
+    then((result => {
+       if (result !== null) {
+            res.status(202).send();
+       } else {
+            res.status(200).send();
+       }
+    })).
+    catch(err => {
+        console.log(err);
+    });
+});
+
 router.route('/users/register').post((req, res) => {
-    let user = new User(req.body);
-    user.save()
-        .then(entry =>
-            res.status(200).json({'user': 'Added successfully'}))
-        .catch(err =>
-            res.status(400).send('Adding new user failed'));
+    const user = new User();
+
+    user.email = req.body.email;
+    user.setPassword(req.body.password);
+
+    user.save((err, user) => {
+        if (err) {
+            res.status(500);
+            console.log(err);
+        } else {
+            res.status(201);
+            res.json({
+                "token": user.generateToken()
+            });
+        }
+    });
 });
 
 router.route('/users/login').post((req, res) => {
     let userData = req.body;
     User.findOne({email: userData.email}, (err, user) => {
         if (err) {
-            console.log(err)
+            res.status(500);
+            console.log(err);
         } else {
             if (!user) {
                 res.status(401).send('E-mail not found');
             } else if (userData.password !== user.password) {
                 res.status(401).send('Invalid password');
             } else {
-                res.status(200).send(user);
+                res.status(200);
+                res.json({
+                    "token": user.generateToken()
+                });                
             }
         }
     });

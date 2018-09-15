@@ -59,11 +59,9 @@ export class CreateComponent implements OnInit {
 
   addEntry(time: string, date: Date, activity: String, mood: Number, remark: String) {
     const timeInput = time.split(':');
-    // tslint:disable-next-line:prefer-const
-    let timeDate = moment(date, 'DD/MM/YYYY HH:mm');
+    const timeDate = moment(date, 'DD/MM/YYYY HH:mm');
     timeDate.add(timeInput[0], 'hours');
     timeDate.add(timeInput[1], 'minutes');
-    this.entryService.addEntry(timeDate, activity, mood, remark).subscribe(() => {this.router.navigate(['/list']);
-    });
+    this.entryService.addEntry(timeDate, activity, mood, remark).subscribe(() => {this.router.navigate(['/list']); });
   }
 }
