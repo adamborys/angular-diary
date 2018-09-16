@@ -19,7 +19,7 @@ export class AuthService {
       email: email,
       password: password
     };
-    return this.http.post(`${this._uri}/users/register`, user, {observe: 'response'});
+    return this.http.post<any>(`${this._uri}/users/register`, user, {observe: 'response'});
   }
 
   loginUser(email, password) {
@@ -27,6 +27,6 @@ export class AuthService {
       email: email,
       password: password
     };
-    return this.http.post(`${this._uri}/users/login`, user);
+    return this.http.post<any>(`${this._uri}/users/login`, user, {observe: 'response'});
   }
 }

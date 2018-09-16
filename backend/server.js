@@ -114,7 +114,7 @@ router.route('/users/login').post((req, res) => {
         } else {
             if (!user) {
                 res.status(401).send('E-mail not found');
-            } else if (userData.password !== user.password) {
+            } else if (!user.validatePassword(userData.password)) {
                 res.status(401).send('Invalid password');
             } else {
                 res.status(200);

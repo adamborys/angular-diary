@@ -13,23 +13,36 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar) { }
-
-  ngOnInit() {
+  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar) {
     this.loginForm = this.fb.group({
-      email: ['', Validators.required],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.required]
     });
   }
 
+  ngOnInit() { }
+
   loginUser(email: String, password: String) {
     this.authService.loginUser(email, password).subscribe(
       res => {
-        console.log(res.valueOf().toString());
+        sessionStorage.setItem('token', res.body.token);
+        this.router.navigate(['/list']);
       },
       err => {
-        console.log(err);
+        if (err.status === 401) {
+          this.snackBar.open('Wrong login or password.', 'Ok', { duration: 3000 });
+        } else {
+          this.snackBar.open('Server unable to process request.', 'Try later', { duration: 3000 });
+          console.log(err);
+        }
       }
     );
+  }
+
+  register(email: String) {
+    if (this.loginForm.controls.email.valid) {
+      sessionStorage.setItem('email', this.loginForm.controls.email.value);
+    }
+    this.router.navigate(['/register']);
   }
 }

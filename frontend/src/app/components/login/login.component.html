@@ -19,7 +19,7 @@
       </div>
       <mat-divider></mat-divider>
       <br>
-      <button type="button" mat-raised-button color="accent">Register</button>
+      <button type="button" mat-raised-button color="accent" (click)="register(email.value)">Register</button>
       <button type="submit" mat-raised-button color="primary" (click)="loginUser(email.value, password.value)"
       [disabled]="loginForm.pristine || loginForm.invalid">Sign in</button>
     </form>

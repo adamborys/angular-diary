@@ -4,7 +4,8 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar, MatStepper } from '@angular/material';
 import { switchMap } from 'rxjs/operators';
-import { of  } from 'rxjs';
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -16,9 +17,7 @@ export class RegisterComponent implements OnInit {
   firstStep: FormGroup;
   secondStep: FormGroup;
 
-  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar) { }
-
-  ngOnInit() {
+  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar) {
     this.firstStep = this.fb.group({
       email: ['', Validators.compose([ Validators.required, Validators.email])]
     });
@@ -26,6 +25,16 @@ export class RegisterComponent implements OnInit {
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
     });
+  }
+
+  ngOnInit() {
+    const emailFromLoginForm = sessionStorage.getItem('email');
+    if (emailFromLoginForm) {
+      this.firstStep.patchValue({
+        email: emailFromLoginForm
+      });
+      sessionStorage.clear();
+    }
   }
 
   registerUser(email: String, password: String) {
@@ -39,14 +48,16 @@ export class RegisterComponent implements OnInit {
     ).subscribe(res => {
       console.log(res);
       if (res.status === 201) {
+        sessionStorage.setItem('token', res.body.token);
         this.router.navigate(['/list']);
       } else if (res.status === 202) {
         this.snackBar.open('E-mail already taken.', 'Ok', { duration: 3000 });
       } else {
-        this.snackBar.open('Unable to add new user.', 'Try later', { duration: 3000 });
+        this.snackBar.open('Server unable to process request.', 'Try later', { duration: 3000 });
       }
     },
     err => {
+      this.snackBar.open('Server unable to process request.', 'Try later', { duration: 3000 });
       console.log(err);
     });
   }
