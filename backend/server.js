@@ -5,7 +5,6 @@ import mongoose from 'mongoose';
 
 import Entry from './models/entry';
 import User from './models/user';
-import crypto from 'crypto';
 
 const app = express();
 const router = express.Router();

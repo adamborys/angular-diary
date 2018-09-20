@@ -20,7 +20,15 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    const emailFromRegisterForm = sessionStorage.getItem('email');
+    if (emailFromRegisterForm) {
+      this.loginForm.patchValue({
+        email: emailFromRegisterForm
+      });
+      sessionStorage.clear();
+    }
+  }
 
   loginUser(email: String, password: String) {
     this.authService.loginUser(email, password).subscribe(

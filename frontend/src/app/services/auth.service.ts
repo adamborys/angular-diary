@@ -29,4 +29,17 @@ export class AuthService {
     };
     return this.http.post<any>(`${this._uri}/users/login`, user, {observe: 'response'});
   }
+
+  isLoggedIn() {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      return false;
+    }
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    if (payload.exp * 1000 < Date.now()) {
+      sessionStorage.clear();
+      return false;
+    }
+    return true;
+  }
 }

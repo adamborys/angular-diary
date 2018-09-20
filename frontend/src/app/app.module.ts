@@ -19,15 +19,17 @@ import { EntryService } from './services/entry.service';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { AuthGuard } from './guards/auth.guard';
+import { AuxiliaryAuthGuard } from './guards/auxiliary-auth.guard';
 
 const routes: Routes = [
-  { path: 'create', component: CreateComponent},
-  { path: 'edit/:id', component: EditComponent},
-  { path: 'list', component: ListComponent},
-  { path: 'stats', component: StatsComponent},
-  { path: 'login', component: LoginComponent},
-  { path: 'register', component: RegisterComponent},
-  { path: 'profile', component: ProfileComponent},
+  { path: 'create', component: CreateComponent, canActivate: [AuthGuard]},
+  { path: 'edit/:id', component: EditComponent, canActivate: [AuthGuard]},
+  { path: 'list', component: ListComponent, canActivate: [AuthGuard]},
+  { path: 'stats', component: StatsComponent, canActivate: [AuthGuard]},
+  { path: 'login', component: LoginComponent, canActivate: [AuxiliaryAuthGuard]},
+  { path: 'register', component: RegisterComponent, canActivate: [AuxiliaryAuthGuard]},
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   { path: '', redirectTo: 'list', pathMatch: 'full'}
 ];
 

@@ -2,6 +2,12 @@
   <span>
     Angular 6 – therapeutic diary prototype
   </span>
+  <span class="fill-remaining"></span>
+  <span>
+    <button *ngIf="this.authService.isLoggedIn()" mat-icon-button type="button" (click)="logout()">
+      <mat-icon>power_settings_new</mat-icon>
+    </button>
+  </span>
 </mat-toolbar>
 <div>
   <router-outlet>

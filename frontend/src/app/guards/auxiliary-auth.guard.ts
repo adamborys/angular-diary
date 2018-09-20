@@ -6,19 +6,19 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuxiliaryAuthGuard implements CanActivate {
 
   constructor(private router: Router, private authService: AuthService, private snackBar: MatSnackBar) {}
 
   canActivate() {
-    if (this.authService.isLoggedIn()) {
+    if (!this.authService.isLoggedIn()) {
       return true;
     } else {
-      const ref = this.snackBar.open('You have to sign in', 'Ok', {duration: 3000});
+      const ref = this.snackBar.open('You\'re already logged in', 'Ok', {duration: 3000});
       ref.afterDismissed().subscribe(() => {
-        this.router.navigate(['/login']);
-      return false;
+        this.router.navigate(['/list']);
       });
+      return false;
     }
   }
 }

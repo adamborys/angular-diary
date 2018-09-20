@@ -61,4 +61,11 @@ export class RegisterComponent implements OnInit {
       console.log(err);
     });
   }
+
+  login(email: String) {
+    if (this.firstStep.controls.email.valid) {
+      sessionStorage.setItem('email', this.firstStep.controls.email.value);
+    }
+    this.router.navigate(['/login']);
+  }
 }
