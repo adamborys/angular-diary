@@ -30,16 +30,27 @@ export class AuthService {
     return this.http.post<any>(`${this._uri}/users/login`, user, {observe: 'response'});
   }
 
-  isLoggedIn() {
+  getToken() {
     const token = sessionStorage.getItem('token');
     if (!token) {
-      return false;
+      return null;
+    } else {
+      return JSON.parse(atob(token.split('.')[1]));
     }
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    if (payload.exp * 1000 < Date.now()) {
-      sessionStorage.clear();
-      return false;
+  }
+
+  isLoggedIn() {
+    const token = this.getToken();
+    if (token !== null && token.exp * 1000 > Date.now()) {
+      return true;
     }
-    return true;
+    return false;
+  }
+
+  getCurrentUserId() {
+    const token = this.getToken();
+    if (token !== null && token.exp * 1000 > Date.now()) {
+      return token._id;
+    }
   }
 }

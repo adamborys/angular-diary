@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import crypto from 'crypto';
 import jsonwebtoken from 'jsonwebtoken';
 
-let User = new mongoose.Schema({
+const User = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     passwordHash: String,
     salt: String
@@ -21,7 +21,7 @@ User.method({
         return jsonwebtoken.sign({
             _id: this._id,
             email: this.email
-        }, process.env.AUTH, {expiresIn: '1h'});
+        }, process.env.AUTH, {expiresIn: 60});
     }
 });
 

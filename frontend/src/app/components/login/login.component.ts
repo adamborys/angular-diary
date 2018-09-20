@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
     this.authService.loginUser(email, password).subscribe(
       res => {
         sessionStorage.setItem('token', res.body.token);
+        console.log(this.authService.getCurrentUserId());
         this.router.navigate(['/list']);
       },
       err => {

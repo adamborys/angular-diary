@@ -16,8 +16,8 @@ mongoose.connect('mongodb://localhost:27017/diary', { useNewUrlParser: true });
 const connection = mongoose.connection;
 connection.once('open', () => console.log('Database connection estabilished'));
 
-router.route('/entries').get((req, res) => {
-    Entry.find((err,entries) => {
+router.route('/entries/:userId').get((req, res) => {
+    Entry.find({owner: req.params.userId}, (err,entries) => {
         if(err)
             console.log(err);
         else
@@ -25,7 +25,7 @@ router.route('/entries').get((req, res) => {
     });
 });
 
-router.route('/entries/:id').get((req, res) => {
+router.route('/entry/:id').get((req, res) => {
     Entry.findById(req.params.id, (err,entry) => {
         if(err)
             console.log(err);
@@ -34,7 +34,7 @@ router.route('/entries/:id').get((req, res) => {
     });
 });
 
-router.route('/entries/add').post((req, res) => {
+router.route('/entry/add').post((req, res) => {
     let entry = new Entry(req.body);
     entry.save()
         .then(entry =>
@@ -43,7 +43,7 @@ router.route('/entries/add').post((req, res) => {
             res.status(400).send('Adding new entry failed'));
 });
 
-router.route('/entries/edit/:id').post((req, res) => {
+router.route('/entry/edit/:id').post((req, res) => {
     Entry.findById(req.params.id, (err, entry) => {
         if(!entry)
             return next(new Error('Unable to load document'));
@@ -62,7 +62,7 @@ router.route('/entries/edit/:id').post((req, res) => {
     });
 });
 
-router.route('/entries/remove/:id').get((req, res) => {
+router.route('/entry/remove/:id').get((req, res) => {
     Entry.findByIdAndRemove(req.params.id, (err, entry) => {
         if(err)
             res.json(err);
