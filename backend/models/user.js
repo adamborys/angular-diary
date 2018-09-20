@@ -21,7 +21,7 @@ User.method({
         return jsonwebtoken.sign({
             _id: this._id,
             email: this.email
-        }, process.env.AUTH, {expiresIn: 60});
+        }, process.env.AUTH, {expiresIn: '1h'});
     }
 });
 

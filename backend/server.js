@@ -35,7 +35,7 @@ router.route('/entry/:id').get((req, res) => {
 });
 
 router.route('/entry/add').post((req, res) => {
-    let entry = new Entry(req.body);
+    const entry = new Entry(req.body);
     entry.save()
         .then(entry =>
             res.status(200).json({'entry': 'Added successfully'}))
@@ -105,7 +105,7 @@ router.route('/users/register').post((req, res) => {
 });
 
 router.route('/users/login').post((req, res) => {
-    let userData = req.body;
+    const userData = req.body;
     User.findOne({email: userData.email}, (err, user) => {
         if (err) {
             res.status(500);

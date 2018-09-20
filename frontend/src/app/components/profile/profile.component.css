@@ -1,0 +1,9 @@
+.button-bar {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-raised-button {
+  margin-bottom: 10pt;
+  width: 200pt;
+}

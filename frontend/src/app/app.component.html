@@ -4,9 +4,12 @@
   </span>
   <span class="fill-remaining"></span>
   <span>
-    <button *ngIf="this.authService.isLoggedIn()" mat-icon-button type="button" (click)="logout()">
-      <mat-icon>power_settings_new</mat-icon>
-    </button>
+    <div *ngIf="this.authService.isLoggedIn()">
+        <button mat-button type="button" (click)="this.router.navigate(['/profile']);">{{this.authService.getCurrentUserEmail()}}</button>
+      <button mat-icon-button type="button" (click)="logout()">
+        <mat-icon>power_settings_new</mat-icon>
+      </button>
+    </div>
   </span>
 </mat-toolbar>
 <div>

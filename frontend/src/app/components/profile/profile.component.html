@@ -5,8 +5,12 @@
     <mat-divider></mat-divider>
     <br>
     <section class="mat-typography">
-      <h3>E-mail: </h3>
-      <h3>Displayed name: </h3>
+      <h3>E-mail: {{this.authService.getCurrentUserEmail()}}</h3>
+      <div class="button-bar">
+        <button type="button" mat-raised-button color="primary">Import backed up entries</button>
+        <button type="button" mat-raised-button>Export entries to backup file</button>
+        <button type="button" mat-raised-button>Export entries to text file</button>
+      </div>
     </section>
     <br>
   </mat-card>

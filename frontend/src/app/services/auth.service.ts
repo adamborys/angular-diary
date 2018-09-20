@@ -53,4 +53,11 @@ export class AuthService {
       return token._id;
     }
   }
+
+  getCurrentUserEmail() {
+    const token = this.getToken();
+    if (token !== null && token.exp * 1000 > Date.now()) {
+      return token.email;
+    }
+  }
 }
