@@ -16,4 +16,8 @@ export class AppComponent {
     sessionStorage.clear();
     this.router.navigate(['/login']);
   }
+
+  isRouteProfile() {
+    return this.router.url === '/profile';
+  }
 }

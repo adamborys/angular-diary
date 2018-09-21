@@ -5,7 +5,12 @@
   <span class="fill-remaining"></span>
   <span>
     <div *ngIf="this.authService.isLoggedIn()">
-        <button mat-button type="button" (click)="this.router.navigate(['/profile']);">{{this.authService.getCurrentUserEmail()}}</button>
+      <button *ngIf="!isRouteProfile()" mat-button type="button" (click)="this.router.navigate(['/profile']);">
+        {{this.authService.getCurrentUserEmail()}}
+      </button>
+      <button *ngIf="isRouteProfile()" mat-button type="button" (click)="this.router.navigate(['/list']);">
+        Your entries list
+      </button>
       <button mat-icon-button type="button" (click)="logout()">
         <mat-icon>power_settings_new</mat-icon>
       </button>
